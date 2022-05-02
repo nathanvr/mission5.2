@@ -18,24 +18,27 @@ const enrollments = [
 let uniqueStudents = new Object;
 let uniqueCourses = new Object;
 
-for (let i = 0; i < students.length; i++ ){
-    const nameStudent= students[i].name;
+
+const ObjUniqueStudents = students.map(obj => {
+    const nameStudent = obj.name;
     uniqueStudents[nameStudent]= [];
-}
+    
+});
 
-for (let i = 0; i < courses.length; i++ ){
-    const nameCourse= courses[i].title;
-    uniqueCourses[nameCourse] = [];
-}
+const objUniqueCourses = courses.map(obj => {
+    const nameCourse = obj.title;
+    uniqueCourses[nameCourse]=[];
+});
 
-for(let i = 0; i<enrollments.length; i++){
-    const {course_id, student_id} = enrollments[i]
+
+enrollments.forEach(enrollObj=>{
+    const {course_id, student_id} = enrollObj
     let curso = courses.filter(course => course._id === course_id)
     let studiante = students.filter(student => student._id === student_id)
     uniqueCourses[curso[0].title].push(studiante[0].name)
     uniqueStudents[studiante[0].name].push(curso[0].title)
-
-}
+    
+} )
 
 // we improve the code and create a function to print the data only passing the argunment (object)
 const printData = (obj) =>{
@@ -48,31 +51,6 @@ const printData = (obj) =>{
         }
 }
 }
-printData(uniqueCourses)
-console.log("\n")
-printData(uniqueStudents)
-
-
-
-
-
-
-// THIS IS THE FIRST WAY TO DELIVER A SOLUTION - WORKING
-// const arrEntriesCourses = Object.entries(uniqueCourses)
-
-// for(let i = 0; i < arrEntriesCourses.length; i++) {
-//     console.log(`- ${arrEntriesCourses[i][0]}`)
-//     for (let j = 0; j < arrEntriesCourses[i][1].length;j++){
-//         console.log(`   *${arrEntriesCourses[i][1][j]}`)
-//     }
-// }
-
+// printData(uniqueCourses)
 // console.log("\n")
-// const arrEntriesStudents = Object.entries(uniqueStudents);
-
-// for(let i = 0; i < arrEntriesStudents.length; i++) {
-//     console.log(`- ${arrEntriesStudents[i][0]}`)
-//     for (let j = 0; j < arrEntriesStudents[i][1].length;j++){
-//         console.log(`   *${arrEntriesStudents[i][1][j]}`)
-//     }
-// }
+// printData(uniqueStudents)
