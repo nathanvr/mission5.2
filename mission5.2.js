@@ -14,34 +14,32 @@ const enrollments = [
     { course_id: 2, student_id: 2 }
   ]
 
+const getData = (courses, students, enrollments)=>{
+    let uniqueStudents = new Object;
+    let uniqueCourses = new Object;
+    const ObjUniqueStudents = students.map(obj => {
+        const nameStudent = obj.name;
+        uniqueStudents[nameStudent]= [];
+    });
+    const objUniqueCourses = courses.map(obj => {
+        const nameCourse = obj.title;
+        uniqueCourses[nameCourse]=[];
+    });
 
-let uniqueStudents = new Object;
-let uniqueCourses = new Object;
+    enrollments.forEach(enrollObj=>{
+        const {course_id, student_id} = enrollObj
+        let curso = courses.filter(course => course._id === course_id)
+        let studiante = students.filter(student => student._id === student_id)
+        uniqueCourses[curso[0].title].push(studiante[0].name)
+        uniqueStudents[studiante[0].name].push(curso[0].title)
+        
+    } )
+    return [uniqueCourses, uniqueStudents]
 
-
-const ObjUniqueStudents = students.map(obj => {
-    const nameStudent = obj.name;
-    uniqueStudents[nameStudent]= [];
-    
-});
-
-const objUniqueCourses = courses.map(obj => {
-    const nameCourse = obj.title;
-    uniqueCourses[nameCourse]=[];
-});
-
-
-enrollments.forEach(enrollObj=>{
-    const {course_id, student_id} = enrollObj
-    let curso = courses.filter(course => course._id === course_id)
-    let studiante = students.filter(student => student._id === student_id)
-    uniqueCourses[curso[0].title].push(studiante[0].name)
-    uniqueStudents[studiante[0].name].push(curso[0].title)
-    
-} )
+}
 
 // we improve the code and create a function to print the data only passing the argunment (object)
-const printData = (obj) =>{
+const printResume = (obj) =>{
     const arr = Object.entries(obj);
 
     for(let i = 0; i < arr.length; i++) {
@@ -51,6 +49,7 @@ const printData = (obj) =>{
         }
 }
 }
-// printData(uniqueCourses)
-// console.log("\n")
-// printData(uniqueStudents)
+console.log()
+printResume(getData(courses, students, enrollments)[0]) // print the resume of courses
+console.log()
+printResume(getData(courses, students, enrollments)[1])  // print the resume of students
