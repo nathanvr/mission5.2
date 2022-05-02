@@ -49,7 +49,10 @@ const printResume = (obj) =>{
         }
 }
 }
+
+const [coursesData, studentsData] = getData(courses, students, enrollments)
+
 console.log()
-printResume(getData(courses, students, enrollments)[0]) // print the resume of courses
+printResume(coursesData) // print the resume of courses
 console.log()
-printResume(getData(courses, students, enrollments)[1])  // print the resume of students
+printResume(studentsData)  // print the resume of students
